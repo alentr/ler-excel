@@ -66,18 +66,18 @@ public class PersonRowMapper implements RowMapper<Person> {
     @Override
     public Person mapRow(Row row) {
         // Cria um novo objeto Person para armazenar os dados extraídos
-        Person person = new Person();
+        var person = new Person();
 
         // Extrai o nome da coluna A (índice 0)
         // CellValueExtractor lida com diferentes tipos de células (String, Numeric, etc.)
         // e retorna null para células vazias
-        String name = CellValueExtractor.getStringValue(row.getCell(NAME_COLUMN_INDEX));
+        var name = CellValueExtractor.getStringValue(row.getCell(NAME_COLUMN_INDEX));
         person.setName(name);
 
         // Extrai a idade da coluna B (índice 1)
         // CellValueExtractor.getIntegerValue() converte células numéricas para Integer
         // e lida com células de texto que contêm números
-        Integer age = CellValueExtractor.getIntegerValue(row.getCell(AGE_COLUMN_INDEX));
+        var age = CellValueExtractor.getIntegerValue(row.getCell(AGE_COLUMN_INDEX));
         person.setAge(age);
 
         // Retorna o objeto Person preenchido

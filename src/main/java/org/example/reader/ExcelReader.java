@@ -1,15 +1,12 @@
 package org.example.reader;
 
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -107,22 +104,22 @@ public class ExcelReader {
         // FileInputStream abre o arquivo para leitura
         // WorkbookFactory.create() detecta automaticamente o tipo de arquivo (.xls ou .xlsx)
         try (InputStream inputStream = new FileInputStream(filePath);
-             Workbook workbook = WorkbookFactory.create(inputStream)) {
+             var workbook = WorkbookFactory.create(inputStream)) {
 
             // Obtém a planilha especificada do workbook
             // Planilhas são indexadas a partir de 0, então a primeira planilha está no índice 0
-            Sheet sheet = workbook.getSheetAt(sheetIndex);
+            var sheet = workbook.getSheetAt(sheetIndex);
 
             // Registra informações sobre a planilha sendo processada
             System.out.println("Lendo planilha: " + sheet.getSheetName());
             System.out.println("Total de linhas (incluindo cabeçalho): " + (sheet.getLastRowNum() + 1));
 
             // Obtém um iterador sobre todas as linhas da planilha
-            Iterator<Row> rowIterator = sheet.iterator();
+            var rowIterator = sheet.iterator();
 
             // Pula as linhas de cabeçalho
             // Linhas de cabeçalho tipicamente contêm nomes de colunas, não dados
-            int skippedRows = 0;
+            var skippedRows = 0;
             while (rowIterator.hasNext() && skippedRows < headerRowCount) {
                 rowIterator.next(); // Pula esta linha
                 skippedRows++;
@@ -130,7 +127,7 @@ public class ExcelReader {
 
             // Processa cada linha de dados
             while (rowIterator.hasNext()) {
-                Row row = rowIterator.next();
+                var row = rowIterator.next();
 
                 // Pula linhas completamente vazias
                 // Uma linha é considerada vazia se não tiver células ou todas as células estiverem em branco
@@ -140,7 +137,7 @@ public class ExcelReader {
 
                 // Usa o RowMapper para converter a linha em um objeto
                 // O mapeador encapsula a lógica de extração de valores das células
-                T mappedObject = rowMapper.mapRow(row);
+                var mappedObject = rowMapper.mapRow(row);
 
                 // Adiciona o objeto mapeado à lista de resultados
                 if (mappedObject != null) {
@@ -207,7 +204,7 @@ public class ExcelReader {
      */
     public int getSheetCount(String filePath) throws IOException {
         try (InputStream inputStream = new FileInputStream(filePath);
-             Workbook workbook = WorkbookFactory.create(inputStream)) {
+             var workbook = WorkbookFactory.create(inputStream)) {
             return workbook.getNumberOfSheets();
         }
     }
@@ -225,9 +222,9 @@ public class ExcelReader {
         List<String> sheetNames = new ArrayList<>();
 
         try (InputStream inputStream = new FileInputStream(filePath);
-             Workbook workbook = WorkbookFactory.create(inputStream)) {
+             var workbook = WorkbookFactory.create(inputStream)) {
 
-            for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
+            for (var i = 0; i < workbook.getNumberOfSheets(); i++) {
                 sheetNames.add(workbook.getSheetName(i));
             }
         }
@@ -235,4 +232,3 @@ public class ExcelReader {
         return sheetNames;
     }
 }
-

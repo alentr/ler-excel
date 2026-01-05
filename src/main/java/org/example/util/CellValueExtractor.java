@@ -207,7 +207,7 @@ public class CellValueExtractor {
 
             case STRING:
                 // Interpreta representações string comuns
-                String value = cell.getStringCellValue().trim().toLowerCase();
+                var value = cell.getStringCellValue().trim().toLowerCase();
                 if ("true".equals(value) || "yes".equals(value) || "1".equals(value) || "sim".equals(value)) {
                     return true;
                 } else if ("false".equals(value) || "no".equals(value) || "0".equals(value) || "não".equals(value)) {

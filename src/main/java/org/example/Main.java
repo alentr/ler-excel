@@ -1,11 +1,9 @@
 package org.example;
 
 import org.example.mapper.PersonRowMapper;
-import org.example.model.Person;
 import org.example.reader.ExcelReader;
 
 import java.io.IOException;
-import java.util.List;
 
 /**
  * Classe principal da aplicação demonstrando as capacidades de leitura de arquivos Excel.
@@ -46,16 +44,16 @@ public class Main {
         // Caminho para o arquivo Excel
         // Você pode alterar isso para ler diferentes arquivos
         // Suporta formatos .xlsx (Excel 2007+) e .xls (Excel 97-2003)
-        String filePath = "docs/exemplo.xlsx";
+        var filePath = "docs/exemplo.xlsx";
 
         // Cria a instância do leitor de Excel
         // Esta classe lida com a abertura do arquivo e iteração pelas linhas
-        ExcelReader excelReader = new ExcelReader();
+        var excelReader = new ExcelReader();
 
         // Cria o mapeador de linhas para objetos Person
         // O mapeador define como extrair dados de cada linha
         // Para diferentes modelos, crie diferentes implementações de RowMapper
-        PersonRowMapper personMapper = new PersonRowMapper();
+        var personMapper = new PersonRowMapper();
 
         try {
             // Exibe informações sobre o arquivo sendo lido
@@ -73,7 +71,7 @@ public class Main {
             // 3. Pula a linha de cabeçalho (primeira linha)
             // 4. Usa o mapeador para converter cada linha de dados em um objeto Person
             // 5. Retorna uma lista de todos os objetos Person
-            List<Person> people = excelReader.readFile(filePath, personMapper);
+            var people = excelReader.readFile(filePath, personMapper);
 
             // Exibe os resultados
             System.out.println();
@@ -91,8 +89,8 @@ public class Main {
                 System.out.println("------+----------------------+------------");
 
                 // Itera pela lista e imprime cada pessoa
-                int index = 1;
-                for (Person person : people) {
+                var index = 1;
+                for (var person : people) {
                     // Formata a saída como uma tabela
                     System.out.printf("%-5d | %-20s | %-10s%n",
                             index,
